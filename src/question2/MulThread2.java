@@ -1,6 +1,6 @@
 package question2;
 
-// Õâ¸ö²¿·ÖµÄÄÚÈİ»¹Ã»ÓĞÑ§µÃºÜÃ÷°×£¬ËùÒÔÓĞµÄ²¿·ÖÇë½ÌÁËÆäËûµÄÍ¬Ñ§TAT£¬»á³éÊ±¼ä¼ÌĞøºÃºÃÑ§Ï°µÄ£¡£¡£¡
+// è¿™ä¸ªéƒ¨åˆ†çš„å†…å®¹è¿˜æ²¡æœ‰å­¦å¾—å¾ˆæ˜ç™½ï¼Œæ‰€ä»¥æœ‰è¯·æ•™å…¶ä»–çš„åŒå­¦TATï¼Œä¼šæŠ½æ—¶é—´ç»§ç»­å¥½å¥½å­¦ä¹ çš„ï¼ï¼ï¼
 
 import java.util.Scanner;
 import java.util.concurrent.Callable;
@@ -10,76 +10,57 @@ public class MulThread2 {
 
 	public static void main(String[] args) {
 		
-		// ÊäÈëÒª²éÕÒµÄÊı×Ö
-		System.out.println("ÇëÊäÈë£º");
+		// è¾“å…¥è¦æŸ¥æ‰¾çš„æ•°å­—
+		System.out.println("è¯·è¾“å…¥ï¼š");
 		Scanner scanner = new Scanner(System.in);		
 		int x = scanner.nextInt();
 		double time1=System.currentTimeMillis();
-//		´´½¨Callable½Ó¿ÚÊµÏÖÀàµÄ¶ÔÏó
-		MyThread numThread1=new MyThread(x,1,100000000);
-		MyThread numThread2=new MyThread(x,100000000,200000000);
-		MyThread numThread3=new MyThread(x,200000000,300000000);
-		MyThread numThread4=new MyThread(x,300000000,400000000);
-		MyThread numThread5=new MyThread(x,400000000,500000000);
-		MyThread numThread6=new MyThread(x,500000000,600000000);
-		MyThread numThread7=new MyThread(x,600000000,700000000);
-		MyThread numThread8=new MyThread(x,700000000,800000000);
-		MyThread numThread9=new MyThread(x,800000000,900000000);
-		MyThread numThread10=new MyThread(x,900000000,1000000000);
-		
-//		½«´ËCallable½Ó¿ÚÊµÏÖÀàµÄ¶ÔÏó×÷Îª´«µİµ½FutureTask¹¹ÔìÆ÷ÖĞ£¬´´½¨FutureTaskµÄ¶ÔÏó
-		FutureTask futureTask1=new FutureTask (numThread1);	
+		// åˆ›å»ºCallableæ¥å£å®ç°ç±»çš„å¯¹è±¡
+		// å°†FutureTaskçš„å¯¹è±¡ä½œä¸ºå‚æ•°ä¼ é€’åˆ°Threadç±»çš„æ„é€ å™¨ä¸­ï¼Œåˆ›å»ºå¯¹è±¡è°ƒç”¨start()
+		MyThread numThread1=new MyThread(x,1,250000000);
+		FutureTask futureTask1=new FutureTask (numThread1);
+	
+		MyThread numThread2=new MyThread(x,250000000,500000000);
 		FutureTask futureTask2=new FutureTask (numThread2);
-		FutureTask futureTask3=new FutureTask (numThread3);
-		FutureTask futureTask4=new FutureTask (numThread4);
-		FutureTask futureTask5=new FutureTask (numThread5);
-		FutureTask futureTask6=new FutureTask (numThread6);
-		FutureTask futureTask7=new FutureTask (numThread7);
-		FutureTask futureTask8=new FutureTask (numThread8);
-		FutureTask futureTask9=new FutureTask (numThread9);
-		FutureTask futureTask10=new FutureTask (numThread10);
 		
-//		  ½«FutureTaskµÄ¶ÔÏó×÷Îª²ÎÊı´«µİµ½ThreadÀàµÄ¹¹ÔìÆ÷ÖĞ£¬´´½¨Thread¶ÔÏó£¬²¢µ÷ÓÃstart()
+		MyThread numThread3=new MyThread(x,500000000,750000000);
+		FutureTask futureTask3=new FutureTask (numThread3);
+		
+		MyThread numThread4=new MyThread(x,750000000,1000000000);
+		FutureTask futureTask4=new FutureTask (numThread4);
+		 
 		new Thread(futureTask1).start();
 		new Thread(futureTask2).start();
 		new Thread(futureTask3).start();
 		new Thread(futureTask4).start();
-		new Thread(futureTask5).start();
-		new Thread(futureTask6).start();
-		new Thread(futureTask7).start();
-		new Thread(futureTask8).start();
-		new Thread(futureTask9).start();
-		new Thread(futureTask10).start();
 		
+		// è·å–Callableä¸­callæ–¹æ³•çš„è¿”å›å€¼
 		try {
-			
-//			»ñÈ¡CallableÖĞcall·½·¨µÄ·µ»ØÖµ
 			Long sum1=(Long) futureTask1.get();
+	
 			Long sum2=(Long) futureTask2.get();
+		
 			Long sum3=(Long) futureTask3.get();
+
 			Long sum4=(Long) futureTask4.get();
-			Long sum5=(Long) futureTask5.get();
-			Long sum6=(Long) futureTask6.get();
-			Long sum7=(Long) futureTask7.get();
-			Long sum8=(Long) futureTask8.get();
-			Long sum9=(Long) futureTask9.get();
-			Long sum10=(Long) futureTask10.get();
-			long sum=sum1+sum2+sum3+sum4+sum5+sum6+sum7+sum8+sum9+sum10;
-			System.out.println("½á¹û£º"+sum);
+
+			long sum=sum1+sum2+sum3+sum4;
+			System.out.println("ç»“æœï¼š"+sum);
 		}catch (Exception e) {
-			System.out.println("´íÎóÔ­Òò£º"+e.getMessage());
+			System.out.println("é”™è¯¯åŸå› ï¼š"+e.getMessage());
 		}
 		double time2=System.currentTimeMillis();
-		System.out.println("ÔËĞĞÊ±¼ä£º"+(time2-time1)+" ms");
+		System.out.println("è¿è¡Œæ—¶é—´ï¼š"+(time2-time1)+" ms");
 	}
 }
-//´´½¨Ò»¸öÊµÏÖCallableµÄÊµÏÖÀà
+//åˆ›å»ºä¸€ä¸ªå®ç°Callableçš„å®ç°ç±»
 class MyThread implements Callable<Long> {
 	public long sum=0;
 	private int x;
 	private int start;
 	private int end;
-	// ÎŞ²ÎºÍÓĞ²ÎµÄ¹¹Ôìº¯Êı
+	
+	// æ— å‚å’Œæœ‰å‚çš„æ„é€ å‡½æ•°
 	public MyThread () {
 
 	}
@@ -89,11 +70,11 @@ class MyThread implements Callable<Long> {
 		this.end=end;
 	}
 
-    //  ÊµÏÖcall·½·¨
+    //  å®ç°callæ–¹æ³•
 	public Long call() throws Exception {
 		
-		for (long i = start; i < end; i++) {
-			// ÅĞ¶ÏÊÇ·ñÓĞËùĞèÊı×Ö
+		for (long i = start; i < end; i++) { // 1000000000
+			// åˆ¤æ–­æ˜¯å¦æœ‰æ‰€éœ€æ•°å­—
 			if (contain(i, x)) {
 				sum += i;
 			}
